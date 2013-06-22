@@ -15,7 +15,9 @@
 #include "timer_lua_ev.c"
 #include "signal_lua_ev.c"
 #include "idle_lua_ev.c"
+#ifndef _WIN32
 #include "child_lua_ev.c"
+#endif
 #include "stat_lua_ev.c"
 
 static const luaL_Reg R[] = {
@@ -58,8 +60,10 @@ LUALIB_API int luaopen_ev(lua_State *L) {
     luaopen_ev_idle(L);
     lua_setfield(L, -2, "Idle");
 
+#ifndef _WIN32
     luaopen_ev_child(L);
     lua_setfield(L, -2, "Child");
+#endif
 
     luaopen_ev_stat(L);
     lua_setfield(L, -2, "Stat");
@@ -78,6 +82,7 @@ LUALIB_API int luaopen_ev(lua_State *L) {
     EV_SETCONST(L, EV_, TIMEOUT);
     EV_SETCONST(L, EV_, WRITE);
 
+#ifndef _WIN32
     EV_SETCONST(L, , SIGABRT);
     EV_SETCONST(L, , SIGALRM);
     EV_SETCONST(L, , SIGBUS);
@@ -115,6 +120,7 @@ LUALIB_API int luaopen_ev(lua_State *L) {
     EV_SETCONST(L, , SIGWINCH);
     EV_SETCONST(L, , SIGXCPU);
     EV_SETCONST(L, , SIGXFSZ);
+#endif
 
 #undef EV_SETCONST
 

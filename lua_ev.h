@@ -187,6 +187,7 @@ static void              idle_cb(struct ev_loop* loop, ev_idle* idle, int revent
 static int               idle_stop(lua_State *L);
 static int               idle_start(lua_State *L);
 
+#ifndef _WIN32
 /**
  * Child functions:
  */
@@ -199,6 +200,7 @@ static int               child_start(lua_State *L);
 static int               child_getpid(lua_State *L);
 static int               child_getrpid(lua_State *L);
 static int               child_getstatus(lua_State *L);
+#endif
 
 /**
  * Stat functions:
