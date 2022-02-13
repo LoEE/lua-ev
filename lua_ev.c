@@ -42,7 +42,8 @@ LUALIB_API int luaopen_ev(lua_State *L) {
 #if LUA_VERSION_NUM > 501
     luaL_newlib(L, R);
 #else
-    luaL_register(L, "ev", R);
+    lua_newtable (L);
+    luaL_register (L, NULL, R);
 #endif
 
     luaopen_ev_loop(L);
