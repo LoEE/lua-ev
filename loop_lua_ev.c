@@ -268,7 +268,10 @@ static int loop_loop(lua_State *L) {
  * "Quit" out of the event loop.
  */
 static int loop_unloop(lua_State *L) {
-    ev_unloop(*check_loop_and_init(L, 1), EVUNLOOP_ALL);
+    unsigned int flag = lua_isnumber(L, 2) ?
+        lua_tointeger(L, 2) : EVUNLOOP_ALL;
+
+    ev_unloop(*check_loop_and_init(L, 1), flag);
     return 0;
 }
 
